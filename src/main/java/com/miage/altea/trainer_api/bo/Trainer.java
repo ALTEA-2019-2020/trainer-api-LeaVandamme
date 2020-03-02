@@ -1,5 +1,6 @@
 package com.miage.altea.trainer_api.bo;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,9 @@ public class Trainer {
 
     public Trainer() {
     }
+
+    @Column
+    private String password;
 
     public Trainer(String name) {
         this.name = name;
@@ -35,5 +39,13 @@ public class Trainer {
 
     public void setTeam(List<Pokemon> team) {
         this.team = team;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
