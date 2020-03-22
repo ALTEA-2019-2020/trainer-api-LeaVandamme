@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class TrainerServiceImpl implements TrainerService{
+
+    @Autowired
     private TrainerRepository trainerRepository;
 
     public TrainerServiceImpl(TrainerRepository trainerRepository) {
