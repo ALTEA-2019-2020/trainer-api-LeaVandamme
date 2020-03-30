@@ -6,8 +6,38 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8081/trainers/",
+			"name": "get all trainers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7ed9fb2-da6d-4c2d-b418-864dca53a409",
+						"exec": [
+							"pm.test(\"all trainers\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eq(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "c3039ecb-ac3f-4805-91ab-65180b6ad6b8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -26,8 +56,38 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8081/trainers/:name",
+			"name": "get trainer by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cf3ffcf-5848-4c40-9260-bc1cfd6f7b72",
+						"exec": [
+							"pm.test(\"Ash\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.eq(\"Ash\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "c3039ecb-ac3f-4805-91ab-65180b6ad6b8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -46,6 +106,86 @@
 							"key": "name",
 							"value": "Ash"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create trainer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "c3039ecb-ac3f-4805-91ab-65180b6ad6b8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"name\": \"Lea\",\n        \"team\": [\n            {\n                \"pokemonTypeId\": 1,\n                \"level\": 18\n            }\n        ],\n        \"password\": \"lea_password\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8081/trainers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"trainers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 trainers now",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3dfa981-a03f-41d8-8e14-18e0e80ac0d6",
+						"exec": [
+							"pm.test(\"all trainers\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eq(3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/trainers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"trainers",
+						""
 					]
 				}
 			},
