@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,11 +18,11 @@ public class TrainerServiceImplIntegrationTest {
 
     @Test
     void getTrainer_withNameAsh_shouldReturnAsh() {
-
-        TrainerService trainerService = Mockito.mock(TrainerService.class);
+        TrainerRepository trainerRepository = Mockito.mock(TrainerRepository.class);
+        TrainerService trainerService = new TrainerServiceImpl(trainerRepository);
         Trainer trainer = new Trainer();
         trainer.setName("Ash");
-        Mockito.when(trainerService.getTrainer("Ash")).thenReturn(trainer);
+        Mockito.when(trainerRepository.findById("Ash")).thenReturn(Optional.of(trainer));
 
         Trainer t = trainerService.getTrainer("Ash");
         assertEquals("Ash", t.getName());
@@ -29,15 +30,15 @@ public class TrainerServiceImplIntegrationTest {
 
     @Test
     void getAllTrainers_shouldReturnAshAndMisty() {
-
-        TrainerService trainerService = Mockito.mock(TrainerService.class);
+        TrainerRepository trainerRepository = Mockito.mock(TrainerRepository.class);
+        TrainerService trainerService = new TrainerServiceImpl(trainerRepository);
         Trainer trainer = new Trainer();
         trainer.setName("Ash");
         Trainer trainer2 = new Trainer();
         trainer2.setName("Misty");
         Trainer[] trainers = {trainer, trainer2};
 
-        Mockito.when(trainerService.getAllTrainers()).thenReturn(Arrays.asList(trainers));
+        Mockito.when(trainerRepository.findAll()).thenReturn(Arrays.asList(trainers));
 
         Iterable<Trainer> res = trainerService.getAllTrainers();
         assertNotNull(trainers);
@@ -50,10 +51,11 @@ public class TrainerServiceImplIntegrationTest {
     @Test
     void createTrainer_shouldReturnTheTrainer() {
 
-        TrainerService trainerService = Mockito.mock(TrainerService.class);
+        TrainerRepository trainerRepository = Mockito.mock(TrainerRepository.class);
+        TrainerService trainerService = new TrainerServiceImpl(trainerRepository);
         Trainer trainer = new Trainer();
         trainer.setName("Ash");
-        Mockito.when(trainerService.createTrainer(trainer)).thenReturn(trainer);
+        Mockito.when(trainerRepository.save(trainer)).thenReturn(trainer);
 
         Trainer res = trainerService.createTrainer(trainer);
         assertNotNull(res);
