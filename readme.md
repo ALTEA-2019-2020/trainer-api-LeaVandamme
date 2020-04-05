@@ -1,10 +1,11 @@
 ## Trainer - API
 
 Port utilisé : 8081
+Version Java : 13
 
 #### Sécurité 
  
-login : user
+login : user  
 password : c3039ecb-ac3f-4805-91ab-65180b6ad6b8
 
 #### Pour tester
